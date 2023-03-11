@@ -1,11 +1,14 @@
 # Собираем приложение в отдельном образе
 FROM ubuntu:22.04 AS dotnet_build_image
 WORKDIR /src
-COPY HealthCheckDotNetFive.csproj .
 RUN apt update && \
     apt install -y ca-certificates && \
     update-ca-certificates && \
-    apt install -y dotnet-sdk-6.0
+    apt install -y dotnet-sdk-6.0	
+# Скачаются все требуемые пакеты dotnet и это закешируется
+COPY HealthCheckDotNetFive.sln .
+RUN dotnet restore
+# Теперь уже копируем все исходники в workdir
 COPY . .
 # Собираем бинарник, который будет выполняться без какого-либо рантайма dotnet
 RUN dotnet publish -r linux-musl-x64 --self-contained true -p:PublishTrimmed=true -c release -o /app
