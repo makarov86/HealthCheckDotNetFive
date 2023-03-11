@@ -20,7 +20,7 @@ RUN dotnet publish -r linux-musl-x64 --self-contained true -p:PublishTrimmed=tru
 # Собираем итоговый рабочий образ
 FROM amd64/alpine:3.16
 WORKDIR /app
-ENV ASPNETCORE_URLS=http://+:8000 DOTNET_RUNNING_IN_CONTAINER=true
+ENV ASPNETCORE_URLS=http://+:8000 DOTNET_RUNNING_IN_CONTAINER=true DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 # Данные либы требуются для работы бинарных .Net приложений без рантайма
 RUN apk add --no-cache \
         ca-certificates \
