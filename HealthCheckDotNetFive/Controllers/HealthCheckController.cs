@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace HealthCheckDotNetFive.Controllers
 {
@@ -14,7 +10,7 @@ namespace HealthCheckDotNetFive.Controllers
     public class HealthCheckController : ControllerBase
     {
         [HttpGet]
-        public IHealthStatusInfo HealthCheck()
+        public HealthResponse HealthCheck()
         {
             return new HealthResponse { StatusName = "ОК" };
         }
@@ -28,10 +24,10 @@ namespace HealthCheckDotNetFive.Controllers
             return Ok(new { UpTimeInfo = info });
         }
 
-        [HttpGet("Info")]
+        [HttpGet("info")]
         public IActionResult Info()
         {
-            return BadRequest(new HealthResponse { StatusName = "34" });
+            return BadRequest(new HealthResponse { StatusName = "Bdr" });
         }
     }
 
