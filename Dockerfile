@@ -4,7 +4,8 @@ WORKDIR /src
 RUN apt update && \
     apt install -y ca-certificates && \
     update-ca-certificates && \
-    apt install -y dotnet-sdk-6.0
+    apt install -y dotnet-sdk-6.0 && \
+	rm -fr /var/lib/apt/lists/*
 
 # Копируем из сходников пока только файлы sln и csproj, сохраняя структуру каталогов,
 # это позволит на данном слое закешировать выкачивание всех нужных для приложения пакетов (dotnet restore)
